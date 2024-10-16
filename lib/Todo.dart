@@ -18,7 +18,7 @@ class _TODOState extends State<TODO> {
     _loadtodoit();
   }
   _loadtodoit()async{
-List<String>? task=box.get('todoitems');{
+List<String>? task=box.get('todoitems')?.cast <String>();{
   if(task !=null){
     setState(() {
       todoitems=task;
@@ -28,7 +28,7 @@ List<String>? task=box.get('todoitems');{
   }
   _savetodoitem(){
     setState(() {
-      box.put('todoitem', 'todoitems');
+      box.put('todoitems', todoitems);
     });
   }
    void _addtodoitem(String item){
@@ -67,7 +67,7 @@ void _removetodoitem(int index){
             decoration: InputDecoration(border: OutlineInputBorder()),)),
         SizedBox(height: 10),
         ElevatedButton(onPressed: (){
-          _addtodoitem('task');
+          _addtodoitem(list.text);
         }, child: Text('Add')),
         Expanded(child: ListView.builder(
           itemCount: todoitems.length,
